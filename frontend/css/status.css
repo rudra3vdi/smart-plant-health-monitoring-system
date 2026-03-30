@@ -1,0 +1,48 @@
+/* Status Banner */
+.status-banner {
+    display: flex;
+    align-items: center;
+    padding: 18px 28px;
+    margin-bottom: 25px;
+    transition: all 0.4s ease;
+}
+
+.status-icon {
+    font-size: 1.8rem;
+    margin-right: 18px;
+    color: var(--text-main);
+}
+
+.status-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.status-text .label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.status-text .value {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.status-good {
+    background: rgba(46, 204, 113, 0.15);
+    border-color: rgba(46, 204, 113, 0.3);
+}
+.status-good .status-icon { color: #2ecc71; }
+
+.status-bad {
+    background: rgba(231, 76, 60, 0.15);
+    border-color: rgba(231, 76, 60, 0.3);
+    animation: pulse-red 2s infinite;
+}
+.status-bad .status-icon { color: var(--alert-red); }
+
+[data-theme="dark"] .status-good { background: rgba(46, 204, 113, 0.1); }
+[data-theme="dark"] .status-bad { background: rgba(231, 76, 60, 0.1); }

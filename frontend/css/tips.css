@@ -1,0 +1,105 @@
+/* Tips Section */
+.tips-section {
+    padding: 24px;
+    margin-bottom: 25px;
+}
+
+.tips-header {
+    margin-bottom: 16px;
+}
+
+.tips-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tips-header h2 i {
+    color: var(--accent-color);
+}
+
+.tip-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tip-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    animation: fadeIn 0.4s ease;
+}
+
+.tip-emoji {
+    font-size: 2.2rem;
+    min-width: 46px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.tip-content h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+.tip-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+}
+
+.tip-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.tip-nav-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.tip-nav-btn:hover {
+    background: rgba(0, 184, 148, 0.1);
+    color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.tip-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--divider);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.dot:hover { background: rgba(0, 184, 148, 0.3); }
+
+.dot.active {
+    background: var(--primary-green);
+    width: 20px;
+    border-radius: 4px;
+}

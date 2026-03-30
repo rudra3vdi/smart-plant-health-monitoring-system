@@ -1,0 +1,22 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Arduino/PlatformIO
+.pio
+/firmware/build/
+*.elf
+*.bin
+*.hex
+
+# Python/AI
+__pycache__/
+*.py[cod]
+venv/
+.env
+*.h5  # Optional: Ignore large raw model files if they are >100MB
+
+# Web
+node_modules/
+dist/
+.firebase/

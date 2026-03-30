@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Plant Monitor 🌱</title>
+    <meta name="description" content="Real-time plant health monitoring dashboard with AI-powered plant care assistant">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/plants.css">
+    <link rel="stylesheet" href="css/status.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/charts.css">
+    <link rel="stylesheet" href="css/tips.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="hero-3d" data-tilt>
+            <div class="hero-content">
+                <div class="header-top">
+                    <div class="logo">
+                        <i class="fa-solid fa-leaf bounce-icon"></i>
+                        <span>Smart Green Care</span>
+                    </div>
+                    <div class="header-actions">
+                        <button id="notification-bell" class="action-btn" title="Notifications">
+                            <i class="fa-solid fa-bell"></i>
+                            <span id="notif-badge" class="badge hidden">0</span>
+                        </button>
+                        <button id="settings-btn" class="action-btn" title="Settings">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                        <button id="theme-toggle" class="action-btn" title="Toggle Dark Mode">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+                <p class="subtitle">Live Plant Health Monitoring System</p>
+            </div>
+        </header>
+
+        <!-- Plant Tabs -->
+        <div class="plant-tabs-wrapper scroll-animate">
+            <div id="plant-tab-list" class="tab-list"></div>
+            <button id="add-plant-btn" class="add-plant-btn" title="Add Plant">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+
+        <!-- Status Banner -->
+        <div id="status-banner" class="status-banner glass-panel scroll-animate">
+            <div class="status-icon"><i class="fa-solid fa-wifi"></i></div>
+            <div class="status-text">
+                <span class="label">System Status</span>
+                <span class="value">Connecting...</span>
+            </div>
+        </div>
+
+        <!-- Sensor Cards -->
+        <main class="cards-grid">
+            <div class="card-wrapper scroll-animate">
+                <div class="card glass-panel moisture-card" data-tilt>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fa-solid fa-water"></i></div>
+                        <h2>Soil Moisture</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="value-display">
+                            <span id="moisture-val" class="main-value">--</span>
+                            <span class="unit">%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="moisture-bar" class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <p class="sub-text">Target: &gt;40%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-wrapper scroll-animate" style="transition-delay: 100ms;">
+                <div class="card glass-panel temp-card" data-tilt>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fa-solid fa-temperature-half"></i></div>
+                        <h2>Temperature</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="value-display">
+                            <span id="temp-val" class="main-value">--</span>
+                            <span class="unit">°C</span>
+                        </div>
+                        <div class="mini-chart">
+                            <svg id="temp-sparkline" viewBox="0 0 100 20" class="sparkline">
+                                <path d="M0,10 L100,10" fill="none" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-wrapper scroll-animate" style="transition-delay: 200ms;">
+                <div class="card glass-panel humid-card" data-tilt>
+                    <div class="card-header">
+                        <div class="icon-box"><i class="fa-solid fa-droplet"></i></div>
+                        <h2>Humidity</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="value-display">
+                            <span id="humid-val" class="main-value">--</span>
+                            <span class="unit">%</span>
+                        </div>
+                        <div class="mini-chart">
+                            <svg id="humid-sparkline" viewBox="0 0 100 20" class="sparkline">
+                                <path d="M0,10 L100,10" fill="none" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Chart Section -->
+        <section class="charts-section glass-panel scroll-animate">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-chart-line"></i> Sensor History</h2>
+                <div class="time-range-btns">
+                    <button class="range-btn active" data-range="1h">1H</button>
+                    <button class="range-btn" data-range="6h">6H</button>
+                    <button class="range-btn" data-range="24h">24H</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="history-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- Plant Care Tips -->
+        <section class="tips-section glass-panel scroll-animate">
+            <div class="tips-header">
+                <h2><i class="fa-solid fa-lightbulb"></i> Plant Care Tips</h2>
+            </div>
+            <div class="tip-card">
+                <div class="tip-content">
+                    <span id="tip-icon" class="tip-emoji">💧</span>
+                    <div>
+                        <h3 id="tip-title">Loading...</h3>
+                        <p id="tip-text">Loading tip...</p>
+                    </div>
+                </div>
+                <div class="tip-controls">
+                    <button id="tip-prev" class="tip-nav-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div id="tip-dots" class="tip-dots"></div>
+                    <button id="tip-next" class="tip-nav-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chatbot -->
+        <section class="chatbot-section glass-panel scroll-animate">
+            <div class="chatbot-header">
+                <div class="bot-info">
+                    <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h3>Plant Doctor AI</h3>
+                        <span class="status-dot"></span> <span id="bot-status-text">Online</span>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="minimize-btn"><i class="fa-solid fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="chat-history" id="chat-history">
+                <div class="message bot-message">
+                    Hello! 🌱 I'm your Plant Doctor AI. Ask me anything about plant care, or say <b>"check my sensors"</b> to see live readings! Make sure the backend proxy is running (<code>npm run dev</code> inside <code>backend/</code>) to enable full AI responses!
+                </div>
+            </div>
+            <div id="quick-replies" class="quick-replies"></div>
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <button id="upload-btn" class="icon-btn" title="Upload Photo">
+                        <i class="fa-solid fa-paperclip"></i>
+                    </button>
+                    <input type="file" id="file-input" hidden accept="image/*">
+                    <input type="text" id="user-input" placeholder="Ask about your plant...">
+                    <button id="send-btn" class="send-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p>Smart Green Care v3.0 · Built with 💚 for EPICS</p>
+            <p class="footer-sub">
+                <a href="https://github.com/sauravX7/Smart-Plant-Monitor" target="_blank">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Notification Panel -->
+    <div id="notification-panel" class="notification-panel hidden">
+        <div class="notif-header">
+            <h3>Notifications</h3>
+            <button id="clear-notifs-btn" class="clear-btn">Clear All</button>
+        </div>
+        <div id="notification-list" class="notif-list">
+            <div class="notif-empty">No notifications yet 🌱</div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-gear"></i> AI Connection Details</h3>
+                <button class="modal-close" onclick="hideModal('settings-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="api-key-input">Proxy Server Status</label>
+                <p class="hint">For security, the API key is now kept server-side in <code>backend/.env</code></p>
+                <input type="text" id="api-key-input" placeholder="Checking backend status..." disabled>
+                <button id="save-settings-btn" class="btn-primary">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Plant Modal -->
+    <div id="add-plant-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-seedling"></i> Add Plant</h3>
+                <button class="modal-close" onclick="hideModal('add-plant-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="plant-name-input">Plant Name</label>
+                <input type="text" id="plant-name-input" placeholder="e.g. My Rose">
+                <label for="plant-emoji-select">Choose Icon</label>
+                <select id="plant-emoji-select">
+                    <option value="🌿">🌿 Fern</option>
+                    <option value="🌵">🌵 Cactus</option>
+                    <option value="🌸">🌸 Flower</option>
+                    <option value="🌹">🌹 Rose</option>
+                    <option value="🌻">🌻 Sunflower</option>
+                    <option value="🌴">🌴 Palm</option>
+                    <option value="🍀">🍀 Clover</option>
+                    <option value="🌱">🌱 Seedling</option>
+                    <option value="🪴">🪴 Potted Plant</option>
+                    <option value="🌳">🌳 Tree</option>
+                </select>
+                <button id="save-plant-btn" class="btn-primary">Add Plant</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

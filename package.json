@@ -1,0 +1,10 @@
+{
+  "name": "smart-plant-monitor",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd backend && npm run dev",
+    "backend:install": "cd backend && npm install",
+    "backend:start": "cd backend && npm start"
+  }
+}

@@ -1,0 +1,80 @@
+/* Plant Tabs */
+.plant-tabs-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding: 6px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.plant-tabs-wrapper::-webkit-scrollbar { display: none; }
+
+.tab-list {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+}
+
+.plant-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.plant-tab:hover {
+    background: rgba(0, 184, 148, 0.08);
+    color: var(--text-main);
+}
+
+.plant-tab.active {
+    background: var(--primary-green);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.35);
+    font-weight: 600;
+}
+
+.tab-emoji { font-size: 1.15rem; }
+
+.add-plant-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 12px;
+    border: 2px dashed var(--glass-border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.add-plant-btn:hover {
+    border-color: var(--primary-green);
+    color: var(--primary-green);
+    background: rgba(0, 184, 148, 0.06);
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .plant-tab { padding: 8px 14px; font-size: 0.82rem; }
+}
